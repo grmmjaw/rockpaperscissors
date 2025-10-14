@@ -6,7 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <button>play</button>
+    <button id="playButton">Click Me</button>
+    <pre id ="log"></pre>
 </body>
 <script>
    function getCompChoice(){
@@ -22,5 +23,33 @@ if (choice === 1){
 else if (choice === 2){
     console.log("equal to two")
 }
+console.log(choice)
+///human part
+function getUserChoice(){
+    const playButton = document.querySelector("#playButton")
+const log = document.querySelector("#log");
+playButton.addEventListener ("click", () => {
+    let userChoice = prompt("Rock, Paper, Scissors SHOOT!")
+    
+    if (userChoice === null){
+        log.innerText = "Null"
+    }
+    else if (userChoice.toLowerCase() === "rock"){
+        log.innerText = "rock"
+    }
+     else if (userChoice.toLowerCase() === "paper"){
+        log.innerText = "paper"
+    }
+     else if (userChoice.toLowerCase() === "scissors"){
+        log.innerText = "scissors"
+    }
+    console.log(userChoice)
+});
+}
+
+getUserChoice()
+
+    
+
 </script>
 </html>
