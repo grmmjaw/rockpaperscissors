@@ -28,6 +28,7 @@ else if (choice === 1){
    const log = document.getElementById('log')
 
   button.addEventListener('click', () => {
+    
    let userChoice = prompt("rock, paper or scissors");
    if (userChoice === null) {
        log.textContent = "No choice entered. Please try again.";
@@ -40,18 +41,36 @@ else if (choice === 1){
    }
    userChoice = userChoice.toLowerCase();
    if (!["rock", "paper", "scissors"].includes(userChoice)) {
-       log.textContent = "Invalid choice. Please enter rock, paper, or scissors.";
+log.textContent = "Invalid choice. Please enter rock, paper, or scissors.";
        return;
    }
    const compChoice = getCompChoice();
-
    const result = playRound(userChoice, compChoice);
+// increment part
+   if (result === "You win"){
+    humanScore++;
+   }else if (result === "computer wins"){
+    computerScore++;
+   }
 
-   log.textContent = `you chose: ${userChoice}\nComputer chose: ${compChoice}\n${result}`
+   log.textContent = 
+`You chose: 
+ ${userChoice}\n
+
+Computer chose: 
+${compChoice}\n
+
+${result}
+   
+
+Scoreboard:
+
+You: ${humanScore}\n
+Computer Score: ${computerScore}\n
+   `;
    });
-
-
-/// playRound logic
+   
+   /// playRound logic
 function playRound(userChoice, compChoice) {
     if (compChoice === userChoice) {
         return "It's a tie";
@@ -64,8 +83,21 @@ function playRound(userChoice, compChoice) {
         return "You win";
     } else {
         return "computer wins";
-    }
+// playGame LOGIC
+  function playGame() {
+  function playRound() {
+    console.log("Playing a round!");
+  }
+  const result = playRound("rock", "paper");
+  console.log(result);
 }
 
+}
+ 
+}
+let humanScore = 0;
+  let computerScore = 0;
+  
 </script>
+
 </html>
