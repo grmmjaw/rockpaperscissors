@@ -7,49 +7,65 @@
 </head>
 <body>
     <button id="playButton">Click Me</button>
-    <pre id ="log"></pre>
+    <pre id="log"></pre>
 </body>
 <script>
+/// Computer choice, selects random number and assigns it to rock paper or scissors
    function getCompChoice(){
-    return Math.floor(Math.random() * 3) ;
-   };
-   const choice = getCompChoice();
+    const choice = Math.floor(Math.random() * 3) ;
+  
 if (choice === 0){
-    console.log("equal to zero")
+    return "rock";
 }
-if (choice === 1){
-    console.log("equal to one")
-}
-else if (choice === 2){
-    console.log("equal to two")
-}
-console.log(choice)
-///human part
-function getUserChoice(){
-    const playButton = document.querySelector("#playButton")
-const log = document.querySelector("#log");
-playButton.addEventListener ("click", () => {
-    let userChoice = prompt("Rock, Paper, Scissors SHOOT!")
-    
-    if (userChoice === null){
-        log.innerText = "Null"
-    }
-    else if (userChoice.toLowerCase() === "rock"){
-        log.innerText = "rock"
-    }
-     else if (userChoice.toLowerCase() === "paper"){
-        log.innerText = "paper"
-    }
-     else if (userChoice.toLowerCase() === "scissors"){
-        log.innerText = "scissors"
-    }
-    console.log(userChoice)
-});
-}
+else if (choice === 1){
+    return "paper";
 
-getUserChoice()
+} else {
+    return "scissors";}}
+   
+    //useraCTIONS for the user actions i need to assign an click event to bring the prompt and an event handler 
+   const button = document.getElementById('playButton')
+   const log = document.getElementById('log')
 
-    
+  button.addEventListener('click', () => {
+   let userChoice = prompt("rock, paper or scissors");
+   if (userChoice === null) {
+       log.textContent = "No choice entered. Please try again.";
+       return;
+   }
+   userChoice = userChoice.trim();
+   if (userChoice === "") {
+       log.textContent = "No choice entered. Please try again.";
+       return;
+   }
+   userChoice = userChoice.toLowerCase();
+   if (!["rock", "paper", "scissors"].includes(userChoice)) {
+       log.textContent = "Invalid choice. Please enter rock, paper, or scissors.";
+       return;
+   }
+   const compChoice = getCompChoice();
+
+   const result = playRound(userChoice, compChoice);
+
+   log.textContent = `you chose: ${userChoice}\nComputer chose: ${compChoice}\n${result}`
+   });
+
+
+/// playRound logic
+function playRound(userChoice, compChoice) {
+    if (compChoice === userChoice) {
+        return "It's a tie";
+    }
+    else if (
+        (userChoice === "rock" && compChoice === "scissors") ||
+        (userChoice === "paper" && compChoice === "rock") ||
+        (userChoice === "scissors" && compChoice === "paper")
+    ) {
+        return "You win";
+    } else {
+        return "computer wins";
+    }
+}
 
 </script>
 </html>
