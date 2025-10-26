@@ -22,39 +22,58 @@ else if (choice === 1){
 
 } else {
     return "scissors";}}
-   
+   // Variables 
+    let humanScore = 0;
+  let computerScore = 0;
+  let round = 0; 
+
+
     //useraCTIONS for the user actions i need to assign an click event to bring the prompt and an event handler 
    const button = document.getElementById('playButton')
    const log = document.getElementById('log')
 
   button.addEventListener('click', () => {
+    if (round >= 5) {
+      log.textContent = "Game over! Please refresh to play again.";
+      return;}
     
    let userChoice = prompt("rock, paper or scissors");
    if (userChoice === null) {
        log.textContent = "No choice entered. Please try again.";
        return;
-   }
+    }
+
+  
    userChoice = userChoice.trim();
    if (userChoice === "") {
        log.textContent = "No choice entered. Please try again.";
        return;
-   }
+   } 
    userChoice = userChoice.toLowerCase();
    if (!["rock", "paper", "scissors"].includes(userChoice)) {
 log.textContent = "Invalid choice. Please enter rock, paper, or scissors.";
        return;
-   }
+    }
+     // Increment round after valid input
+    round++
    const compChoice = getCompChoice();
    const result = playRound(userChoice, compChoice);
 // increment part
    if (result === "You win"){
     humanScore++;
-   }else if (result === "computer wins"){
+   }
+   
+   else if (result === "computer wins"){
     computerScore++;
    }
 
-   log.textContent = 
-`You chose: 
+   
+
+let message = `
+Round:
+${round}
+
+You chose: 
  ${userChoice}\n
 
 Computer chose: 
@@ -68,36 +87,40 @@ Scoreboard:
 You: ${humanScore}\n
 Computer Score: ${computerScore}\n
    `;
-   });
+
+ if (round === 5) {
+        if (humanScore > computerScore) {
+          message += "\nGame Over — You win the match!";
+        } else if (computerScore > humanScore) {
+          message += "\nGame Over — Computer wins the match!";
+        } else {
+          message += "\nGame Over — It's a tie!";
+        }
+      }
+
+      log.textContent = message;
+    });
+
+ 
+
+
+
+
    
-   /// playRound logic
-function playRound(userChoice, compChoice) {
-    if (compChoice === userChoice) {
+  function playRound(userChoice, compChoice) {
+      if (compChoice === userChoice) {
         return "It's a tie";
-    }
-    else if (
+      } else if (
         (userChoice === "rock" && compChoice === "scissors") ||
         (userChoice === "paper" && compChoice === "rock") ||
         (userChoice === "scissors" && compChoice === "paper")
-    ) {
+      ) {
         return "You win";
-    } else {
+      } else {
         return "computer wins";
-// playGame LOGIC
-  function playGame() {
-  function playRound() {
-    console.log("Playing a round!");
-  }
-  const result = playRound("rock", "paper");
-  console.log(result);
-}
+      }
+    }
+        
 
-}
- 
-}
-let humanScore = 0;
-  let computerScore = 0;
-  
 </script>
-
 </html>
