@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  Best of 5
 <div class="buttons">
 <button id="rock">Rock</button>
    <button id="paper">Paper</button>
       <button id="scissors">Scissors</button></div>
-      <div id = "message"></div> 
+      <div id = "Display">
+<div id = "message">^^^^^^<hr>select
+</div> 
+      
+        
+      </div>
         
       </body>
 <script>
@@ -38,8 +45,12 @@ let compChoice = ""
     const paper = document.getElementById("paper");
  const scissors = document.getElementById("scissors");
  const message = document.getElementById("message");
+document.getElementById("rock").disabled = false;
+document.getElementById("paper").disabled = false;
+document.getElementById("scissors").disabled = false;
 
- function playMatch(){
+
+function playMatch(){
       compChoice = getCompChoice();
     const result = playRound(userChoice, compChoice);
   
@@ -51,7 +62,7 @@ let compChoice = ""
    else if (result === "computer wins")
     computerScore++;
    
-message.innerText = `
+ message.innerText = `
 Round:
 ${round}
 
@@ -68,10 +79,34 @@ Scoreboard:
 
 You: ${humanScore}\n
 Computer Score: ${computerScore}\n
-   `;}
-
-
+   `;
+  console.log(round)
+  console.log(userChoice)
+  console.log(compChoice)
+  console.log(result)
   
+
+  if(round === 6 && compChoice > userChoice)
+  message.innerText = `
+Game Over!
+Computer wins!
+Refresh to restart
+`
+else if (round === 6 && compChoice < userChoice)
+message.innerText =  `
+Game Over! 
+You win!
+Refresh to restart
+`
+ if (round === 6){
+ document.getElementById("rock").disabled = true;
+ document.getElementById("paper").disabled = true;
+ document.getElementById("scissors").disabled = true
+ }
+
+}
+
+
  function callPlayRoundRock(){
   userChoice = "rock"
   playMatch()
@@ -93,7 +128,7 @@ rock.addEventListener("click", callPlayRoundRock)
 scissors.addEventListener("click", callPlayRoundScissors)
 paper.addEventListener("click", callPlayRoundPaper)
 
-    
+ 
 
 
    
@@ -110,6 +145,8 @@ paper.addEventListener("click", callPlayRoundPaper)
         return "computer wins";
       }
     }
+
+    
   
 </script>
 </html>
