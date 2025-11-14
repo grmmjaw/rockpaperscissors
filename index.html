@@ -6,70 +6,52 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="playButton">Click Me</button>
-    <pre id="log"></pre>
-</body>
+<div class="buttons">
+<button id="rock">Rock</button>
+   <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button></div>
+      <div id = "message"></div> 
+        
+      </body>
 <script>
+  const messageBox = ""
 /// Computer choice, selects random number and assigns it to rock paper or scissors
    function getCompChoice(){
     const choice = Math.floor(Math.random() * 3) ;
-  
 if (choice === 0){
     return "rock";
-}
-else if (choice === 1){
+}else if (choice === 1){
     return "paper";
-
-} else {
+}else {
     return "scissors";}}
-   // Variables 
+
+
+
     let humanScore = 0;
   let computerScore = 0;
   let round = 0; 
-
+let userChoice = "";
+let compChoice = ""
 
     //useraCTIONS for the user actions i need to assign an click event to bring the prompt and an event handler 
-   const button = document.getElementById('playButton')
-   const log = document.getElementById('log')
+   const rock = document.getElementById("rock");
+    const paper = document.getElementById("paper");
+ const scissors = document.getElementById("scissors");
+ const message = document.getElementById("message");
 
-  button.addEventListener('click', () => {
-    if (round >= 5) {
-      log.textContent = "Game over! Please refresh to play again.";
-      return;}
-    
-   let userChoice = prompt("rock, paper or scissors");
-   if (userChoice === null) {
-       log.textContent = "No choice entered. Please try again.";
-       return;
-    }
-
+ function playMatch(){
+      compChoice = getCompChoice();
+    const result = playRound(userChoice, compChoice);
   
-   userChoice = userChoice.trim();
-   if (userChoice === "") {
-       log.textContent = "No choice entered. Please try again.";
-       return;
-   } 
-   userChoice = userChoice.toLowerCase();
-   if (!["rock", "paper", "scissors"].includes(userChoice)) {
-log.textContent = "Invalid choice. Please enter rock, paper, or scissors.";
-       return;
-    }
-     // Increment round after valid input
-    round++
-   const compChoice = getCompChoice();
-   const result = playRound(userChoice, compChoice);
-// increment part
-   if (result === "You win"){
+  round++
+   if (result === "You win")
     humanScore++;
-   }
    
-   else if (result === "computer wins"){
+   
+   else if (result === "computer wins")
     computerScore++;
-   }
-
    
-
-let message = `
+message.innerText = `
 Round:
 ${round}
 
@@ -79,31 +61,39 @@ You chose:
 Computer chose: 
 ${compChoice}\n
 
-${result}
+${result}\n        
    
 
 Scoreboard:
 
 You: ${humanScore}\n
 Computer Score: ${computerScore}\n
-   `;
+   `;}
 
- if (round === 5) {
-        if (humanScore > computerScore) {
-          message += "\nGame Over — You win the match!";
-        } else if (computerScore > humanScore) {
-          message += "\nGame Over — Computer wins the match!";
-        } else {
-          message += "\nGame Over — It's a tie!";
-        }
-      }
 
-      log.textContent = message;
-    });
+  
+ function callPlayRoundRock(){
+  userChoice = "rock"
+  playMatch()
+  
+ };
+  
+ function callPlayRoundScissors(){
+  userChoice = "scissors"
+    playMatch()
 
+ };
+   
+ function callPlayRoundPaper(){
+  userChoice = "paper"
+    playMatch()
+ };
  
+rock.addEventListener("click", callPlayRoundRock) 
+scissors.addEventListener("click", callPlayRoundScissors)
+paper.addEventListener("click", callPlayRoundPaper)
 
-
+    
 
 
    
@@ -120,7 +110,6 @@ Computer Score: ${computerScore}\n
         return "computer wins";
       }
     }
-        
-
+  
 </script>
 </html>
